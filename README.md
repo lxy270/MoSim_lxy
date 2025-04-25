@@ -20,7 +20,7 @@ Official implementation of:
 
 > For more visual results, including video comparisons across agents, please visit our [website](https://oamics.github.io/mosim_page/).
 
-miniforge3/envs/wuji/lib/python3.12/site-packages/dm_control/suite
+
 
 
 
@@ -38,6 +38,32 @@ Navigate to the root directory of this repository and run:
 ```bash
 pip install -e .
 ```
+
+### 🔹 Step 2: Replace the Corresponding Package Files
+
+We provide a `suite.zip` file under the `assets/` folder containing modified files for `dm_control`. You just need to unzip and replace the existing files in your local environment.
+
+#### ✅ Instructions:
+
+1. Locate and unzip the file (e.g., `assets/suite.zip`).
+
+2. Navigate to the following directory where `dm_control` is installed (based on your environment):
+
+3. Replace the contents of this `suite/` folder with the unzipped files.  
+👉 *It's recommended to back up the original folder before replacing.*
+
+---
+
+> 💡 **Tip:** If you're not sure where `dm_control` is installed, run the following command:
+
+```bash
+python -c "import dm_control; print(dm_control.__file__)"
+``` 
+
+
+
+
+
 Once MoSim is installed, you can start training with the following command:
 ``` 
 python train.py --config config/file/path --device cuda:0
