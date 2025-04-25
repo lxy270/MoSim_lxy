@@ -4,7 +4,7 @@ Official implementation of:
 
 **[Neural Motion Simulator: Pushing the Limit of World Models in Reinforcement Learning](https://oamics.github.io/mosim_page/)**  
 
-🌐 [Project Page](https://oamics.github.io/mosim_page/) | 📄 [arXiv](https://arxiv.org/abs/2504.07095) | [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="HuggingFace" height="20"> Checkpoints](https://huggingface.co/wujiss1/MoSim_checkpoints)
+🌐 [Project Page](https://oamics.github.io/mosim_page/) | [<img src="https://upload.wikimedia.org/wikipedia/commons/3/3b/ArXiv_logo.svg" alt="arXiv" height="20"> arXiv:2504.07095](https://arxiv.org/abs/2504.07095)   | [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="HuggingFace" height="20"> Checkpoints](https://huggingface.co/wujiss1/MoSim_checkpoints)
 
 
 
