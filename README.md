@@ -23,7 +23,20 @@ Official implementation of:
 
 
 
-## Train model
+---
+
+## 🛠️ Setup & Training
+
+Before training or evaluation, please make sure to install MoSim as a developer package and configure the environment properly.
+
+### 🔹 Step 1: Install MoSim in editable mode
+
+Navigate to the root directory of this repository and run:
+
+```bash
+pip install -e .
+```
+Once MoSim is installed, you can start training with the following command:
 ``` 
 python train.py --config config/file/path --device cuda:0
 ```
@@ -45,4 +58,3 @@ jupyter kernelspec list
 }
 
 
-python train.py --config /home/chenjiehao/projects/Neural-Simulator/configs/vsdreamer/humanoid/td_mpc.yaml --device cuda:1
