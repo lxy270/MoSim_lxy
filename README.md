@@ -4,7 +4,8 @@ Official implementation of:
 
 **[Neural Motion Simulator: Pushing the Limit of World Models in Reinforcement Learning](https://oamics.github.io/mosim_page/)**  
 
-🌐 [Project Page](https://oamics.github.io/mosim_page/) | 📄 [arXiv](https://arxiv.org/abs/2504.07095)
+🌐 [Project Page](https://oamics.github.io/mosim_page/) | [![arXiv](https://img.shields.io/badge/arXiv-2504.07095-b31b1b.svg)](https://arxiv.org/abs/2504.07095)
+
 
 ---
 
@@ -18,7 +19,7 @@ Official implementation of:
 
 > For more visual results, including video comparisons across agents, please visit our [website](https://oamics.github.io/mosim_page/).
 
-
+miniforge3/envs/wuji/lib/python3.12/site-packages/dm_control/suite
 
 
 
