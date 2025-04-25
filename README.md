@@ -1,4 +1,34 @@
-# Neural Simulator
+# 🌀 Neural Motion Simulator (MoSim)
+
+Official implementation of:
+
+**[Neural Motion Simulator: Pushing the Limit of World Models in Reinforcement Learning](https://oamics.github.io/mosim_page/)**  
+
+🌐 [Project Page](https://oamics.github.io/mosim_page/) | 📄 [arXiv](https://arxiv.org/abs/2504.07095)
+
+---
+
+## 🎯 Visual Comparisons
+
+<p align="center">
+  <img src="assests/teaser1.jpg" width="800"/><br/>
+  <img src="assests/teaser2.jpg" width="800"/><br/>
+  <img src="assests/teaser3.jpg" width="800"/>
+</p>
+
+> For more visual results, including video comparisons across agents, please visit our [website](https://oamics.github.io/mosim_page/).
+
+
+---
+
+## 🚀 Highlights
+
+- 🔁 Predicts long-horizon physical dynamics accurately  
+- 🧠 Enables sample-efficient skill learning and planning  
+- 🎯 Competitive zero-shot RL performance  
+- 🧩 Modular — decouples world model and RL algorithm
+
+
 
 ## Train model
 ``` 
