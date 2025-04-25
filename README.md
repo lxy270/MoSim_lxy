@@ -90,22 +90,6 @@ python src/oprl/configs/tqc.py --env cheetah-run-MoSim --device cuda:2
 ```
 
 
-export PYTHONPATH="/home/chenjiehao/projects:$PYTHONPATH"
-jupyter kernelspec list
-
-{
-    "argv": [
-        "python",
-        "-m",
-        "ipykernel_launcher",
-        "-f",
-        "{connection_file}",
-        "PYTHONPATH=/path/to/your/modules:$PYTHONPATH"
-    ],
-    "display_name": "Python 3",
-    "language": "python"
-}
-
 
 
 
