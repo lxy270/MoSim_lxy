@@ -41,32 +41,54 @@ pip install -e .
 
 ### 🔹 Step 2: Replace the Corresponding Package Files
 
-We provide a `suite.zip` file under the `assets/` folder containing modified files for `dm_control`. You just need to unzip and replace the existing files in your local environment.
+We provide modified versions of both `dm_control` and `myosuite` packages. To apply these changes, simply unzip the corresponding files in the `assets/` folder and replace the existing package directories in your local environment.
 
 #### ✅ Instructions:
 
-1. Locate and unzip the file (e.g., `assets/suite.zip`).
+1. Unzip the following files provided in the `assets/` folder:
+   - `suite.zip` → for `dm_control`
+   - `myo_sim.zip` and `envs.zip` → for `myosuite`
 
-2. Navigate to the following directory where `dm_control` is installed (based on your environment):
+2. Replace the original directories with the unzipped folders:
 
-3. Replace the contents of this `suite/` folder with the unzipped files.  
+   - **For `dm_control`**  
+     Replace the contents of:
+     ```
+     <your_python_env>/lib/pythonX.Y/site-packages/dm_control/suite
+     ```
+     with the extracted files from `suite.zip`.
+
+   - **For `myosuite`**  
+     Replace the contents of:
+     ```
+     <your_python_env>/lib/pythonX.Y/site-packages/myosuite/simhive/myo_sim
+     ```
+     with the extracted files from `myo_sim.zip`, and:
+     ```
+     <your_python_env>/lib/pythonX.Y/site-packages/myosuite/envs
+     ```
+     with the extracted files from `envs.zip`.
 
 ---
 
-> 💡 **Tip:** If you're not sure where `dm_control` is installed, run the following command:
+> 💡 **Tip:** To find the actual location of these packages, run the following commands in your environment:
 
 ```bash
 python -c "import dm_control; print(dm_control.__file__)"
+python -c "import myosuite; print(myosuite.__file__)"
 ``` 
 
+### 🔹 Step 3: Start Training
 
-
-
-
-Once MoSim is installed, you can start training with the following command:
+You can start training with the following command:
 ``` 
 python train.py --config config/file/path --device cuda:0
 ```
+To train a zero-shot reinforcement learning agent with MoSim, use the following command:
+```
+python src/oprl/configs/tqc.py --env cheetah-run-MoSim --device cuda:2
+```
+
 
 export PYTHONPATH="/home/chenjiehao/projects:$PYTHONPATH"
 jupyter kernelspec list
