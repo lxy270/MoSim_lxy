@@ -50,7 +50,6 @@ We provide a `suite.zip` file under the `assets/` folder containing modified fil
 2. Navigate to the following directory where `dm_control` is installed (based on your environment):
 
 3. Replace the contents of this `suite/` folder with the unzipped files.  
-👉 *It's recommended to back up the original folder before replacing.*
 
 ---
 
