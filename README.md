@@ -19,14 +19,7 @@ Official implementation of:
 > For more visual results, including video comparisons across agents, please visit our [website](https://oamics.github.io/mosim_page/).
 
 
----
 
-## 🚀 Highlights
-
-- 🔁 Predicts long-horizon physical dynamics accurately  
-- 🧠 Enables sample-efficient skill learning and planning  
-- 🎯 Competitive zero-shot RL performance  
-- 🧩 Modular — decouples world model and RL algorithm
 
 
 
