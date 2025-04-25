@@ -11,9 +11,9 @@ Official implementation of:
 ## 🎯 Visual Comparisons
 
 <p align="center">
-  <img src="assests/teaser1.jpg" width="800"/><br/>
-  <img src="assests/teaser2.jpg" width="800"/><br/>
-  <img src="assests/teaser3.jpg" width="800"/>
+  <img src="assets/teaser1.jpg" width="800"/><br/>
+  <img src="assets/teaser2.jpg" width="800"/><br/>
+  <img src="assets/teaser3.jpg" width="800"/>
 </p>
 
 > For more visual results, including video comparisons across agents, please visit our [website](https://oamics.github.io/mosim_page/).
