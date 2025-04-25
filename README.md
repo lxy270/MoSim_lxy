@@ -107,3 +107,20 @@ jupyter kernelspec list
 }
 
 
+
+
+## 📚 Citation
+
+If you find our work useful, please consider citing:
+
+```bibtex
+@misc{hao2025neuralmotionsimulatorpushing,
+      title={Neural Motion Simulator: Pushing the Limit of World Models in Reinforcement Learning}, 
+      author={Chenjie Hao and Weyl Lu and Yifan Xu and Yubei Chen},
+      year={2025},
+      eprint={2504.07095},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2504.07095}
+}
+
