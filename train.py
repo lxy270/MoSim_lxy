@@ -87,8 +87,8 @@ else:
         )
     print("Model loaded.")
 
-criterion = Relative_MSELoss(if_norm=True).to(DEVICE)
-# criterion = torch.nn.MSELoss(reduction="none")
+# criterion = Relative_MSELoss(if_norm=True).to(DEVICE)
+criterion = torch.nn.MSELoss(reduction="none")
 # load data:
 print("Start loading data...")
 
