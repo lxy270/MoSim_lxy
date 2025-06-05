@@ -98,13 +98,11 @@ python src/oprl/configs/tqc.py --env cheetah-run-MoSim --device cuda:2
 If you find our work useful, please consider citing:
 
 ```bibtex
-@misc{hao2025neuralmotionsimulatorpushing,
-      title={Neural Motion Simulator: Pushing the Limit of World Models in Reinforcement Learning}, 
-      author={Chenjie Hao and Weyl Lu and Yifan Xu and Yubei Chen},
-      year={2025},
-      eprint={2504.07095},
-      archivePrefix={arXiv},
-      primaryClass={cs.LG},
-      url={https://arxiv.org/abs/2504.07095}
+@InProceedings{Hao_2025_CVPR,
+    author    = {Hao, Chenjie and Lu, Weyl and Xu, Yifan and Chen, Yubei},
+    title     = {Neural Motion Simulator Pushing the Limit of World Models in Reinforcement Learning},
+    booktitle = {Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
+    month     = {June},
+    year      = {2025},
+    pages     = {27608-27617}
 }
-
