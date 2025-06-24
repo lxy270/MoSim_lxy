@@ -147,7 +147,7 @@ print("Data loaded.")
 
 optimizer = torch.optim.Adam(ode.parameters(), lr=training_param["lr"])
 T_0 = 25
-scheduler = CosineAnnealingWarmRestarts(optimizer, T_0==T_0)
+scheduler = CosineAnnealingWarmRestarts(optimizer, T_0=T_0)
 print(f"lr = {training_param['lr']}")
 print("Start training...")
 train_ode(
