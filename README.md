@@ -4,9 +4,16 @@ Official implementation of:
 
 **[Neural Motion Simulator: Pushing the Limit of World Models in Reinforcement Learning](https://oamics.github.io/mosim_page/)**  
 
-🌐 [Project Page](https://oamics.github.io/mosim_page/) | 📄 [arXiv](https://arxiv.org/abs/2504.07095) | [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="HuggingFace" height="20"> Checkpoints](https://huggingface.co/wujiss1/MoSim_checkpoints)
+---
 
+## 🗞 News
 
+📢 **[2025-06]** We have released the official **MoSim Dataset** used for training and evaluation:  
+👉 [https://huggingface.co/datasets/wujiss1/MoSim_Dataset](https://huggingface.co/datasets/wujiss1/MoSim_Dataset)
+
+---
+
+🌐 [Project Page](https://oamics.github.io/mosim_page/) | 📄 [arXiv](https://arxiv.org/abs/2504.07095) | [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="HuggingFace" height="20"> Checkpoints](https://huggingface.co/wujiss1/MoSim_checkpoints) | [<img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="HuggingFace" height="20"> Dataset](https://huggingface.co/datasets/wujiss1/MoSim_Dataset)
 
 ---
 
@@ -19,11 +26,6 @@ Official implementation of:
 </p>
 
 > For more visual results, including video comparisons across agents, please visit our [website](https://oamics.github.io/mosim_page/).
-
-
-
-
-
 
 ---
 
@@ -89,9 +91,7 @@ To train a zero-shot reinforcement learning agent with MoSim, use the following 
 python src/oprl/configs/tqc.py --env cheetah-run-MoSim --device cuda:2
 ```
 
-
-
-
+---
 
 ## 📚 Citation
 
@@ -106,3 +106,4 @@ If you find our work useful, please consider citing:
     year      = {2025},
     pages     = {27608-27617}
 }
+```
