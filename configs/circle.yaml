@@ -1,0 +1,33 @@
+# from reacher_int_dreamer_rn.yaml
+training:
+  training_stage: -1
+  seed: 1887299
+  lr: 0.00004 # ori 0.00004
+  num_epochs : 1000000000
+  t : 0.02
+  batch_size : 5000
+  keep_top : 5
+
+  comment: ''
+  task_name: 'circle'
+  save_path : 'ckpt/circle'
+data:
+  train_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-circle-zero.npz'
+  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-circle-zero-test.npz'
+model:
+  ## model_param:
+  q_dim: 7
+  v_dim : 6
+  action_dim : 1
+  quat_config : [3,10] # [3, 3+nq]
+
+  real_t : 0.02
+  activation : 'softplus' #['softplus','atan','relu']
+  dynamic_model_type:  'resnet'  #['rigid_body','resnet']
+  ### Residual Module:
+  dynamics_hidden_block_num : 7
+  dynamics_network_width : 64
+  ### correctors:
+  crt_num : 0
+  crt_hidden_block_num : 3
+  crt_network_width : 64

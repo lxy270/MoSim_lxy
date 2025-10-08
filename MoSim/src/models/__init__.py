@@ -1,5 +1,5 @@
 from .modules import ResidualNet, MModule, MLP
-from .dynamics import Dynamic_model_rigid_body, Dynamic_model_resnet
+from .dynamics import Dynamic_model_rigid_body, Dynamic_model_resnet, Dynamic_model_resnet_direct
 from .bijectors import ODEBijector
 
 
@@ -104,6 +104,25 @@ def initialize_model(v_dim, action_dim, real_t, activation, is_atten=False, **kw
             kwargs.get, dynamic_model_rn_params
         )
         dynamic_model = Dynamic_model_resnet(
+            q_dim,
+            v_dim,
+            action_dim,
+            dynamics_hidden_block_num,
+            dynamics_network_width,
+            activation,
+            is_atten,
+            correctors,
+            quat_config=quat_config,
+        )
+    elif dynamic_model_type == "resnet_direct":
+        dynamic_model_rn_params = [
+            "dynamics_hidden_block_num",
+            "dynamics_network_width",
+        ]
+        dynamics_hidden_block_num, dynamics_network_width = map(
+            kwargs.get, dynamic_model_rn_params
+        )
+        dynamic_model = Dynamic_model_resnet_direct(
             q_dim,
             v_dim,
             action_dim,

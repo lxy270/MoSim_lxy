@@ -55,6 +55,7 @@ test_data_path = config["data"]["test_data_path"]
 dr_config = config["data"].get("data_rebalance")
 
 training_param.setdefault("task_name", task_name)
+training_param.setdefault("comment", '')
 
 v_dim = model_param["v_dim"]
 action_dim = model_param["action_dim"]

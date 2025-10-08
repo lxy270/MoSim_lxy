@@ -89,7 +89,67 @@ class Dynamic_model_rigid_body(nn.Module):
                 q_rate = v
         return torch.cat((q_rate, v_rate, torch.zeros_like(action)), dim=1)
 
+# for go
+class Dynamic_model_resnet_direct(nn.Module):
+    def __init__(
+        self,
+        q_dim,
+        v_dim,
+        action_dim,
+        hidden_block_num,
+        network_width,
+        activation,
+        is_atten,
+        correctors=[],
+        quat_config=None,
+    ):
+        """
+        quat_config: int tuple (q_quat_beging_idx, v_omega_begin_idx)
+        """
+        super().__init__()
+        self.q_dim = q_dim
+        self.action_dim = action_dim
+        self.residual_module = ResidualNet(
+            q_dim + v_dim + action_dim,
+            v_dim+q_dim,
+            hidden_block_num,
+            network_width,
+            activation,
+            is_atten,
+        )
+        self.correctors = nn.ModuleList(correctors)
+        self.quat_config = quat_config
+        self.action = None
+        self.training_stage = -1
 
+    def forward(self, t, x):
+        q = x[:, : self.q_dim]
+        v = x[:, self.q_dim : -self.action_dim]
+        action = x[:, -self.action_dim :]
+        x = x[:, : -self.action_dim]
+        if action == None:
+            raise Exception("Action not set!")
+
+        module_input = torch.cat((x, action), dim=1)
+        rate = self.residual_module(module_input)
+
+        if self.training_stage != 0:
+            corrector_input = module_input
+            if self.training_stage == -1:  # integral training.
+                for i in range(len(self.correctors)):
+                    rate += self.correctors[i](corrector_input)
+            else:  # train the n-th part.
+                rate = rate.detach()
+                for i in range(self.training_stage):
+                    if i != self.training_stage - 1:
+                        rate += self.correctors[i](corrector_input).detach()
+                    else:
+                        rate += self.correctors[i](corrector_input)
+
+        return torch.cat((rate, torch.zeros_like(action)), dim=1)
+    
+
+# modified ori, nq=nv or quat_config
 class Dynamic_model_resnet(nn.Module):
     def __init__(
         self,
@@ -108,6 +168,7 @@ class Dynamic_model_resnet(nn.Module):
         """
         super().__init__()
         self.q_dim = q_dim
+        self.action_dim = action_dim
         self.residual_module = ResidualNet(
             q_dim + v_dim + action_dim,
             v_dim,
@@ -123,11 +184,13 @@ class Dynamic_model_resnet(nn.Module):
 
     def forward(self, t, x):
         q = x[:, : self.q_dim]
-        v = x[:, self.q_dim :]
-        if self.action == None:
+        v = x[:, self.q_dim : -self.action_dim]
+        action = x[:, -self.action_dim :]
+        x = x[:, : -self.action_dim]
+        if action == None:
             raise Exception("Action not set!")
 
-        module_input = torch.cat((x, self.action), dim=1)
+        module_input = torch.cat((x, action), dim=1)
         v_rate = self.residual_module(module_input)
 
         if self.training_stage != 0:
@@ -166,7 +229,8 @@ class Dynamic_model_resnet(nn.Module):
         else:
             q_rate = v.detach()
 
-        return torch.cat((q_rate, v_rate), dim=1)
+        # return torch.cat((q_rate, v_rate), dim=1)
+        return torch.cat((q_rate, v_rate, torch.zeros_like(action)), dim=1)
 
 
 class Quaternion(torch.Tensor):

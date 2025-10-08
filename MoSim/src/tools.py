@@ -320,6 +320,7 @@ def train_ode(
     scheduler=None,
     batch_size=10000,
     task_name="",
+    comment="",
     save_path="",
     from_ckpt=None,
     continue_training=True,
@@ -356,7 +357,7 @@ def train_ode(
         model.dynamic_model.training_stage = training_stage
     model.train()
 
-    wandb.init(project="MoSim", name=f"{task_name}_{train_time}", config=model_param)
+    wandb.init(project="MoSim", name=f"{task_name}_{comment}", config=model_param)
 
     train_dataset = torch.utils.data.TensorDataset(
         state_train, action_train, target_train
@@ -370,6 +371,34 @@ def train_ode(
     target_test = target_test.to(device)
 
     while True:
+        model.eval()
+        with torch.no_grad(): # img_test
+            # transformer: a[0:10]+(h_0+o[0:9]) rec o[0:10], o[9]+a[10:] img o[10:]
+            # dreamer: a[0:10]+(h_0+o[0:10]) rec, a[10:] img o[10:]
+            # mosim: a[1:10]+o[0:9] rec o[1:10], o[9]+a[10:] img o[10:]
+            # mosim: (o[0:-1], a[1:], o[1:])
+            condition_step = 10
+            rec_test = []
+            for n in range(condition_step-1): 
+                next_state = model(state_test[:, n], action_test[:, n], 0.0, t)
+                rec_test.append(next_state)
+            rec_test = torch.stack(rec_test).permute(1, 0, 2)
+            rec_loss = torch.nn.functional.mse_loss(rec_test, state_test[:, 1:condition_step]) # a[1:10]+o[0:9] rec o[1:10]
+            prediction_test = []
+            current_state = state_test[:, condition_step-1] # o[9]
+            for n in range(condition_step-1, state_test.shape[1]):
+                next_state = model(current_state, action_test[:, n], 0.0, t)
+                prediction_test.append(next_state)
+                current_state = next_state
+            prediction_test = torch.stack(prediction_test).permute(1, 0, 2) # [t, b, d] -> [b, t, d]
+            img_loss = torch.nn.functional.mse_loss(prediction_test, target_test[:, condition_step-1:])
+            img_losses = {f'img_loss{k}': torch.nn.functional.mse_loss(prediction_test[:, :k], target_test[:, condition_step-1:condition_step-1+k]) for k in range(10, 90, 10)}
+            wandb.log({'rec_loss': rec_loss, 'img_loss': img_loss}, step=step)
+            wandb.log(img_losses, step=step)
+            # todo, log curve after determine frequency
+            # log_one_curve(f"step{step}", list(range(1, 10)), [torch.nn.MSELoss()(img_obs[:, t-10:t], data['observations'][:, t:t+10]) for t in range(10, 100, 10)], step=update_count)
+
+        model.train()
         for x, a, target in train_dataloader:
             optimizer.zero_grad()
             x, a, target = x.to(device), a.to(device), target.to(device)
@@ -457,7 +486,7 @@ def train_ode(
         }
 
         if checkpoint_dir == "":
-            checkpoint_dir = os.path.join(save_path, f"{task_name}_{train_time}")
+            checkpoint_dir = os.path.join(save_path, f"{task_name}_{comment}_{train_time}")
             os.makedirs(checkpoint_dir, exist_ok=True)
 
         checkpoint_filename = f"ckpt_{int(step/1000000)}M.pth"
