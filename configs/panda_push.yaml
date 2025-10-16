@@ -2,13 +2,13 @@
 training:
   training_stage: -1
   seed: 1887299
-  lr: 0.00004
+  lr: 0.0004 # 0.00004
   num_epochs : 1000000000
-  t : 0.8
+  t : 0.02
   batch_size : 5000
   keep_top : 5
 
-  comment: 'dt0.8'
+  comment: 'llr'
   task: 'PandaPush'
   save_path : 'ckpt/PandaPush'
 data:
@@ -20,7 +20,7 @@ model:
   v_dim : 0
   action_dim : 3
 
-  real_t : 0.8
+  real_t : 0.02
   activation : 'softplus' #['softplus','atan','relu']
   dynamic_model_type:  'resnet_direct'  #['rigid_body','resnet']
   ### Residual Module:
