@@ -2,25 +2,22 @@
 training:
   training_stage: -1
   seed: 1887299
-  lr: 0.00004
+  lr: 0.0004 # llr0.0004 # ori0.00004
   num_epochs : 1000000000
   t : 0.02
   batch_size : 5000
   keep_top : 5
 
-  from_ckpt: '/scorpio/home/yubei-stu-2/mosim/ckpt/go/go_10070519/latest_ckpt_48M.pth'
-  comment: 'tvar'
-  task_name: 'go'
-  act_mode: 'random'
-  task: 'go'
-  save_path : 'ckpt/go'
+  comment: 'save-llr'
+  task: 'Point3D'
+  save_path : 'ckpt/Point3D'
 data:
-  train_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-go-random.npz'
-  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-go-random.npz'
+  train_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-Point3D-random.npz'
+  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-Point3D-random-test.npz'
 model:
   ## model_param:
-  q_dim: 361
-  v_dim : 2
+  q_dim: 12
+  v_dim : 0
   action_dim : 1
 
   real_t : 0.02

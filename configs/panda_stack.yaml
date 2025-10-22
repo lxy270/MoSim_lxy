@@ -8,7 +8,7 @@ training:
   batch_size : 5000
   keep_top : 5
 
-  comment: 'llr'
+  comment: 'save-llr'
   task: 'PandaStack'
   save_path : 'ckpt/PandaStack'
 data:

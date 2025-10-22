@@ -10,10 +10,12 @@ training:
 
   comment: 'llr'
   task_name: 'circle'
+  act_mode: 'zero'
   save_path : 'ckpt/circle'
+  from_ckpt: '/scorpio/home/yubei-stu-2/mosim/ckpt/circle/circle_llr_10090158/ckpt_2167M.pth'
 data:
   train_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-circle-zero.npz'
-  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-circle-zero-test.npz'
+  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-circle-zero.npz'
 model:
   ## model_param:
   q_dim: 7

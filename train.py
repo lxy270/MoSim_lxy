@@ -167,7 +167,7 @@ train_ode(
     device=DEVICE,
     optimizer=optimizer,
     scheduler=scheduler,
-    model_param=model_param,
+    model_param={**model_param, **config['training']},
     dr_config=dr_config,
     **training_param,
 )

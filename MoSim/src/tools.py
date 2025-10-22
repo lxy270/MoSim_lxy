@@ -12,6 +12,7 @@ from matplotlib import pyplot as plt
 import yaml
 import pytz
 import wandb
+from tqdm import tqdm
 
 from .models import initialize_model
 import normflows as nf
@@ -330,6 +331,7 @@ def train_ode(
     multistep_test=False,
     device=torch.device("cpu"),
     is_ode=True,
+    act_mode='',
     **kwargs,
 ):
 
@@ -369,6 +371,50 @@ def train_ode(
     state_test = state_test.to(device)
     action_test = action_test.to(device)
     target_test = target_test.to(device)
+
+    eval_tvar = True
+    if eval_tvar:
+        savepath = f'/scorpio/home/yubei-stu-2/smallworld/results_tvar/mosim-{task_name}-{act_mode}.pt'
+        print('eval_tvar', savepath)
+        state_test = state_test.to(device)[:100]
+        action_test = action_test.to(device)[:100]
+        target_test = target_test.to(device)[:100]
+        
+        model.eval()
+        with torch.no_grad(): # img_test
+            condition_step = 10
+            rec_test = []
+            for n in tqdm(range(condition_step-1)): 
+                next_state = model(state_test[:, n], action_test[:, n], 0.0, t)
+                rec_test.append(next_state)
+            rec_test = torch.stack(rec_test).permute(1, 0, 2)
+            rec_loss = torch.nn.functional.mse_loss(rec_test, state_test[:, 1:condition_step]) # a[1:10]+o[0:9] rec o[1:10]
+            print(rec_loss)
+
+            T = state_test.shape[1]
+            B, D = state_test.shape[0], state_test.shape[2]
+            pred_len = T - (condition_step-1)
+            prediction_test = torch.empty(B, pred_len, D, device=state_test.device) 
+            action_tm = action_test.transpose(0, 1).contiguous() 
+
+            current_state = state_test[:, condition_step-1] # o[9]
+            for i, n in tqdm(enumerate(range(condition_step-1, state_test.shape[1]))):
+                next_state = model(current_state, action_tm[n], 0.0, t)
+                prediction_test[:, i] = next_state
+                current_state = next_state
+            # prediction_test = torch.stack(prediction_test).permute(1, 0, 2) # [t, b, d] -> [b, t, d]
+            eval_loss = torch.nn.functional.mse_loss(prediction_test, target_test[:, condition_step-1:], reduction="none")
+            print('eval shape', eval_loss.shape)
+
+            tvar = [1, 5, 10, 100, eval_loss.shape[1]]
+            tloss = []
+            for idx in tvar:
+                tloss.append(eval_loss[:, :idx].mean())
+            print('tloss ', tloss)
+            torch.save({'tvar': tvar, 'tloss': tloss}, savepath)
+            print('result save ', savepath)
+            exit()
+
 
     best_img_loss = torch.inf
     while True:    
@@ -461,7 +507,7 @@ def train_ode(
         if checkpoint_dir == "":
             checkpoint_dir = os.path.join(save_path, f"{task_name}_{comment}_{train_time}")
             os.makedirs(checkpoint_dir, exist_ok=True)
-
+        best_path = os.path.join(checkpoint_dir, f'best_img.pth')
         model.eval()
         with torch.no_grad(): # img_test
             # transformer: a[0:10]+(h_0+o[0:9]) rec o[0:10], o[9]+a[10:] img o[10:]
@@ -489,7 +535,7 @@ def train_ode(
             if img_loss < best_img_loss:
                 best_img_loss = img_loss
                 wandb.log({'best_img_loss': best_img_loss}, step=step)
-                torch.save(checkpoint, os.path.join(checkpoint_dir, f'best_img.pth'))
+                torch.save(checkpoint, best_path)
                 
         checkpoint_filename = f"ckpt_{int(step/1000000)}M.pth"
         checkpoint_path = os.path.join(checkpoint_dir, checkpoint_filename)
@@ -504,7 +550,7 @@ def train_ode(
         )
         torch.save(checkpoint, latest_path)
 
-        keep_files = {x[1] for x in top_ckpt_list} | {latest_path}
+        keep_files = {x[1] for x in top_ckpt_list} | {latest_path} | {best_path}
         existing_files = set(
             os.path.join(checkpoint_dir, f) for f in os.listdir(checkpoint_dir)
         )
