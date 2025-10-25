@@ -8,12 +8,12 @@ training:
   batch_size : 5000
   keep_top : 5
 
-  comment: 'save-llr'
-  task: 'PandaStack'
-  save_path : 'ckpt/PandaStack'
+  comment: 'v1-llr'
+  task: 'PandaStack-v1'
+  save_path : 'ckpt/PandaStack-v1'
 data:
-  train_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-PandaStack-random.npz'
-  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-PandaStack-random-test.npz'
+  train_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-PandaStack-v1-random.npz'
+  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-PandaStack-v1-random-test.npz'
 model:
   ## model_param:
   q_dim: 43

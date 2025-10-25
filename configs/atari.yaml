@@ -8,7 +8,7 @@ training:
   batch_size : 5000
   keep_top : 5
 
-  from_ckpt: '/scorpio/home/yubei-stu-2/mosim/ckpt/atari_boxing/atari_boxing_save-slr_10180733/best_img.pth'
+  # from_ckpt: '/scorpio/home/yubei-stu-2/mosim/ckpt/atari_boxing/atari_boxing_save-slr_10180733/best_img.pth'
   comment: 'save-slr-tvar'
 #   task_name: 'atari_pong'
 #   save_path : 'ckpt/atari_pong'
@@ -20,7 +20,7 @@ training:
   save_path : 'ckpt/atari_boxing'
 data:
   train_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-Boxing-v5-random.npz'
-  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-Boxing-v5-random.npz'
+  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-Boxing-v5-random-test.npz'
 model:
   ## model_param:
   q_dim: 128

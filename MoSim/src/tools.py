@@ -372,7 +372,7 @@ def train_ode(
     action_test = action_test.to(device)
     target_test = target_test.to(device)
 
-    eval_tvar = True
+    eval_tvar = False
     if eval_tvar:
         savepath = f'/scorpio/home/yubei-stu-2/smallworld/results_tvar/mosim-{task_name}-{act_mode}.pt'
         print('eval_tvar', savepath)

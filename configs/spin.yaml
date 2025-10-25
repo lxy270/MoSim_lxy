@@ -8,14 +8,14 @@ training:
   batch_size : 5000
   keep_top : 5
 
-  from_ckpt: '/scorpio/home/yubei-stu-2/mosim/ckpt/spin/spin__10071130/ckpt_209M.pth'
+  # from_ckpt: '/scorpio/home/yubei-stu-2/mosim/ckpt/spin/spin__10071130/ckpt_209M.pth'
   comment: 'tvar'
   task_name: 'spin'
   act_mode: 'zero'
   save_path : 'ckpt/spin'
 data:
   train_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-spin-zero.npz'
-  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-spin-zero.npz'
+  test_data_path : '/scorpio/home/yubei-stu-2/mosim/data/trans-spin-zero-test.npz'
 model:
   ## model_param:
   q_dim: 7
